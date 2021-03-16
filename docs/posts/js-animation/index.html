@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh" >
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content="Hugo 0.81.0" />
+    
+    <link rel="canonical" href="https://sunfy.xyz/posts/js-animation/" />
+    <meta name="description" content="">
+    
+    <title>Javascript动画 &middot; sunfy</title>
+    <link rel="shortcut icon" href="https://sunfy.xyz/images/favicon.ico" />
+    <link rel="stylesheet" href="https://sunfy.xyz/css/main.css" />
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/atom-one-light.min.css">
+    
+    
+    <link rel="stylesheet" href="https://sunfy.xyz/css/custom.css">
+    
+</head>
+
+
+<body>
+    <header class="header">
+    <a href="https://sunfy.xyz/" class="btn logo-link">
+        <img class="logo" src="https://sunfy.xyz/images/logo.svg" alt="logo" />
+    </a>
+    <ul class="control menu">
+            
+            <li>
+                <a href="/" class="btn">
+                    Home
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about" class="btn">
+                    About
+                </a>
+            </li>
+            
+            <li>
+                <a href="/tool" class="btn">
+                    Tool
+                </a>
+            </li>
+            
+    </ul>
+</header>
+
+    <main class="content">
+    <h1 class="title"><a href='/posts/js-animation/' class="btn">Javascript动画</a></h1>
+    <div class="content">
+        
+        <p>利用<code>requestanimationframe</code>实现 的一种通用动画效果, 方便使用其他库辅助动画效果.</p>
+<h1 id="时间">时间</h1>
+<p>控制时间就等于控制了动画, 我们先确定动画的持续时间<code>duration</code>, 然后计算出已播放的时间长度对于<code>duration</code>的比值, 也就是动画进度<code>progress</code>. 比如一个小球从空中落到地面的动画, 小球在空中4秒钟, <code>duration</code>是<code>4</code>, 动画开始时, <code>progress</code>是0, 小球还没有掉落, 2秒钟后0.5, 小球掉了一半的距离, 当<code>progress</code>是1时, 小球落到地面, 动画结束了.</p>
+<p>如果用图形表达</p>
+<p>progress:</p>
+<pre><code>      |---------------------------------|
+
+      t0  t0.1  t0.2 ...                t1
+
+      0                                 1
+</code></pre><p>progress 对应的位置:</p>
+<pre><code>      |---------------------------------|
+
+      x                                 y
+
+t0 * (y-x) + x                     t1 * (y-x) + x
+
+      x                                 y
+</code></pre><h2 id="performance-接口">performance 接口</h2>
+<p>Javascript的performance接口有几个函数特别有用, <code>performance.now</code>获取当前时间戳, 和Date相比, 它的精度更高, 虽然为了避免被时序攻击, 时间都做了一定的模糊化处理, 还是要比Date.now()精度高, 可以达到微秒.</p>
+<p>另外, <code>performance.mark</code>, <code>performance.clearMarks</code>, <code>performance.getEntriesByName</code>可以用来操作buffer, 我们可以mark一个动画的id, entry里会保存mark的时间. Buffer的空间可以设置, 按照MDN的说法, 浏览器推荐的是150个对象, 动画一般很短, 结束就把entry clear掉, 没什么问题, 如果动画很多很长, 我想buffer没爆之前, 浏览器已经爆掉了, 所以我不是太关心这个限制问题.</p>
+<p>实际代码</p>
+<pre><code>const trackTime = id =&gt; {
+    const [entry] = performance.getEntriesByName(id)
+    if (!entry) {
+        performance.mark(id)
+        return 0
+    }
+    return performance.now() - entry.startTime
+}
+</code></pre><p>上面的代码就是用来计算动画已经播放的时间的, id是requestAnimationFrame的返回值.</p>
+<p>有了trackTime, 就可以计算出progress了.</p>
+<pre><code>const getProgress = ({duration, id}) =&gt; {
+    if (duration) {
+        return Math.min(trackTime(id) / duration, 1)
+    }
+    return 1
+}
+</code></pre><p>开头提到的&quot;已播放的时间长度对于<code>duration</code>的比值&quot;.</p>
+<h1 id="动画函数">动画函数</h1>
+<p>有了这两个工具函数, 就可以开始写动画函数了.</p>
+<pre><code>const animate = (cb, duration, easing) =&gt; {
+    const tick = () =&gt; {
+        const progress = Math.min(time.easing(getProgress(time)), 1)
+        if (progress &lt; 1) {
+            cb(progress)
+            requestAnimationFrame(tick)
+        } else if (progress === 1) {
+            cb(progress)
+            performance.clearMarks(time.id)
+        }
+    }
+    const time = {
+        id: requestAnimationFrame(tick),
+        duration,
+        easing
+    }
+}
+</code></pre><p>这个动画函数接受一个回调函数&ndash;每一帧执行的行为, 一个持续时间, 和一个easing函数. 当<code>progress</code>等于1时, 则绘制完当前帧后就不再继续播放了.</p>
+<h1 id="例子">例子</h1>
+<p>这里是一个小球掉落的动画函数</p>
+<pre><code>const cubic = progress =&gt; Math.pow(--progress, 3) + 1
+const drop = (duration, easing) =&gt; {
+    const ballEle = document.querySelector('.ball')
+    const r = ballEle.getBoundingClientRect()
+    const data = {
+        ele: ballEle,
+        initX: r.top,
+        distance: document.body.getBoundingClientRect().bottom - r.bottom - 5,
+        duration,
+        easing
+    }
+
+    animate(progress =&gt; {
+            data.ele.style.top = progress * data.distance + data.initX + 'px'
+        }, data.duration, data.easing)
+}
+drop(2000, cubic)
+</code></pre><p>其中, initX是小球的初始位置, distance是小球距离地面的距离, 那个-5是因为body元素有5px的border, 并不重要. <code>progress * data.distance + data.initX + 'px'</code> 也是上面图里说的<code>t * (y-x) + x</code>, 至于为什么说t, 网上有些动画库叫t, 反正我们知道其实是progress就好.</p>
+<p>至于easing函数, 单纯的数学公式, 他们有一个特点, 就是要保证输入0时输出是0, 输入1时输出是1, 0到1之间的小数就随便变化了. 不过D3.ease库有一些easing效果不满足这个要求, 这种情况需要处理, 不然动画会&quot;卡碟&quot;, 卡在那完不成.</p>
+<p><a href="https://codepen.io/jacobsun/pen/LozYKj?editors=0110">完整Demo</a></p>
+<h1 id="参考">参考</h1>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance">https://developer.mozilla.org/en-US/docs/Web/API/Performance</a></p>
+<p><a href="https://medium.com/@bdc/gain-motion-superpowers-with-requestanimationframe-ecc6d5b0d9a4">https://medium.com/@bdc/gain-motion-superpowers-with-requestanimationframe-ecc6d5b0d9a4</a></p>
+
+        
+    </div>
+    <div class="meta">
+        <p class="published-date">
+            Published at:                 <time datetime="2019.05.20">2019.05.20</time>
+        </p>
+        
+        <p>Categories</p>
+        <ul class="categories control">
+            
+            <li>
+                <a href="https://sunfy.xyz/categories/javascript/" class="btn">javascript</a>
+            </li>
+            
+        </ul>
+        
+        
+        <p>Tags:</p>
+        <ul class="tags control">
+            
+            <li>
+                <a href="https://sunfy.xyz/tags/%E5%8A%A8%E7%94%BB/" class="btn">动画</a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</main>
+<section class="comment">
+    <p class="local-info">
+        Comment is disabled to avoid unwanted discussions from 'localhost:1313' on your Disqus
+        account...
+    </p>
+    <div id="disqus_thread"></div>
+</section>
+<script type="text/javascript">
+
+    (function () {
+        if (window.location.hostname == "localhost") {
+            return
+        }
+        document.querySelector('.local-info').style.display = "none"
+
+        let dsq = document.createElement('script')
+        dsq.type = 'text/javascript'
+        dsq.async = true
+        let disqus_shortname = 'theziox'
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq)
+    })()
+</script>
+
+
+    <footer class="footer"><a href="/">sunfy.xyz</a></footer>
+
+    <script src="https://sunfy.xyz/js/main.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-140015188-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+</html>

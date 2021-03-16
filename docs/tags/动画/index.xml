@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>动画 on sunfy</title>
+    <link>https://sunfy.xyz/tags/%E5%8A%A8%E7%94%BB/</link>
+    <description>Recent content in 动画 on sunfy</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Mon, 20 May 2019 18:17:53 +0800</lastBuildDate><atom:link href="https://sunfy.xyz/tags/%E5%8A%A8%E7%94%BB/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Javascript动画</title>
+      <link>https://sunfy.xyz/posts/js-animation/</link>
+      <pubDate>Mon, 20 May 2019 18:17:53 +0800</pubDate>
+      
+      <guid>https://sunfy.xyz/posts/js-animation/</guid>
+      <description>利用requestanimationframe实现 的一种通用动画效果, 方便使用其他库辅助动画效果. 时间 控制时间就等于控制了动画, 我们先确定动画的持续时间duration, 然后计算出已播放的时间长度对于</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,45 @@
+@media only screen and (max-width: 800px) {
+    .status li:last-child {
+        display: list-item;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .status li:nth-last-child(2) {
+        display: list-item;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .status li:nth-last-child(3) {
+        display: list-item;
+    }
+
+    .status li:nth-last-child(4) {
+        display: list-item;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .status {
+        display: list-item;
+    }
+}
+
+/* override */
+
+@media only screen and (max-width: 700px) {
+    .status li:last-child {
+        display: none;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .status li:nth-last-child(2) {
+        display: none;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .status li:nth-last-child(3) {
+        display: none;
+    }
+}

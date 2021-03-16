@@ -1,0 +1,6 @@
+[submodule "themes/hugo-theme-cole"]
+	path = themes/hugo-theme-cole
+	url = git@github.com:sfengyuan/hugo-theme-cole.git
+[submodule "themes/edidor"]
+	path = themes/edidor
+	url = git@github.com:sfengyuan/edidor.git

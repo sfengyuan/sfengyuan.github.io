@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh" >
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content="Hugo 0.81.0" />
+    
+    <link rel="canonical" href="https://sunfy.xyz/posts/audio-context-with-autoplay/" />
+    <meta name="description" content="">
+    
+    <title>自动播放媒体文件与Audio Context &middot; sunfy</title>
+    <link rel="shortcut icon" href="https://sunfy.xyz/images/favicon.ico" />
+    <link rel="stylesheet" href="https://sunfy.xyz/css/main.css" />
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/atom-one-light.min.css">
+    
+    
+    <link rel="stylesheet" href="https://sunfy.xyz/css/custom.css">
+    
+</head>
+
+
+<body>
+    <header class="header">
+    <a href="https://sunfy.xyz/" class="btn logo-link">
+        <img class="logo" src="https://sunfy.xyz/images/logo.svg" alt="logo" />
+    </a>
+    <ul class="control menu">
+            
+            <li>
+                <a href="/" class="btn">
+                    Home
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about" class="btn">
+                    About
+                </a>
+            </li>
+            
+            <li>
+                <a href="/tool" class="btn">
+                    Tool
+                </a>
+            </li>
+            
+    </ul>
+</header>
+
+    <main class="content">
+    <h1 class="title"><a href='/posts/audio-context-with-autoplay/' class="btn">自动播放媒体文件与Audio Context</a></h1>
+    <div class="content">
+        
+        <p>Chome在去年更新了新的政策, 进一步限制了媒体的自动播放.</p>
+<h1 id="自动播放">自动播放</h1>
+<p>根据官网给的说明, 新的政策是:</p>
+<p><strong>静音的媒体可以</strong></p>
+<p>许多网站都是这么做的, 自动播放静音的视频, 需要用户手动启用声音.</p>
+<p><strong>用户产生操作之后</strong></p>
+<p>chrome会拦截代码里的播放指令, 当用户产生操作之后, 比如单击或触摸, chrome会尝试自动播放. 但是这个并不靠谱, 如果你的AudioContext是在页面载入时创建的, 那就必须手动调用resume.</p>
+<p><strong>桌面浏览器的MEI决定是否自动播放</strong></p>
+<p>在chrome里打开<code>chrome://media-engagement/</code>查看域名的MEI评分.</p>
+<p><strong>移动浏览器上, 添加到首页的页面可以自动播放</strong></p>
+<h1 id="本地调试">本地调试</h1>
+<p>允许自动播放:</p>
+<p>打开<code>chrome://flags/#autoplay-policy</code>, 把<code>&quot;Autoplay Policy&quot;</code> 设置为 <code>&quot;No user gesture is required&quot;</code></p>
+<p>不允许自动播放:</p>
+<p>在快捷方式上设置flag:<code>.../chrome.exe&quot; --disable-features=&quot;PreloadMediaEngagementData,AutoplayIgnoreWebAudio, MediaEngagementBypassAutoplayPolicies&quot;</code></p>
+<h1 id="audiocontext">AudioContext</h1>
+<p>我们尝试用AudioContext写一个播放音乐的页面, AudioContext好比一个由很多音频节点构成的一个图纸, 每一个节点都可以操纵音频.
+我们的所有操作也必须由节点完成.</p>
+<p>如图:</p>
+<pre><code>          |-----------------------------------------------------------|
+          |    --------------    --------------    ---------------    |
+mp3  -&gt;   |    | audio node |    | audio node |    | audio  node |    |
+ogg  -&gt;   | -&gt; |------------| -&gt; |------------| -&gt; |-------------|    |
+etc  -&gt;   |    |   source   |    |   ......   |    | destination |    |
+          |    |------------|    |------------|    |-------------|    |
+          |-----------------------------------------------------------|
+</code></pre><p>音频文件解码之后作为source节点, 然后连接到destination节点, 就可以播放了, 之间可以根据需要连接其他节点, 如GainNode可以控制音量.</p>
+<h1 id="示例">示例</h1>
+<h2 id="创建context">创建Context</h2>
+<pre><code>    function createAudioContext() {
+      let ctx
+      try {
+        ctx = new (window.AudioContext || window.webkitAudioContext)()
+      } catch (e) {
+        console.log('audioContext unavailable.')
+      }
+      return ctx
+    }
+</code></pre><h2 id="获取文件">获取文件</h2>
+<p>可以用FileReader. 这里是ajax, 类型是<code>'arraybuffer'</code></p>
+<pre><code>    function requestSound(url) {
+      return new Promise((resolve, reject) =&gt; {
+        const req = new XMLHttpRequest()
+        req.open('GET', url, true)
+        req.responseType = 'arraybuffer'
+        req.onload = () =&gt; {
+          resolve(req.response)
+        }
+        req.onerror = () =&gt; { reject('XHR:Faild to request' + url) }
+        req.send()
+      })
+    }
+</code></pre><h2 id="解码">解码</h2>
+<pre><code>    function decodeBuffer(ctx, arraybuffer) {
+      return new Promise((resolve, reject) =&gt; {
+        ctx.decodeAudioData(arraybuffer, decoded =&gt; {
+          resolve(decoded)
+        })
+      })
+    }
+</code></pre><h2 id="创建source节点">创建source节点</h2>
+<pre><code>    function createSource(ctx, { decoded, loop }) {
+      let source = ctx.createBufferSource()
+      source.buffer = decoded
+      source.loop = loop
+      source.onended = () =&gt; {
+        source = null
+      }
+      return source
+    }
+</code></pre><h2 id="连接destination节点">连接destination节点</h2>
+<pre><code>    let source = createSource(ctx, {decoded, loop: true})
+    source.connect(ctx.destination)
+    source.start()
+</code></pre><p>注意上面的<code>source.start()</code>不一定会播放, chrome会拦截成suspended状态, <code>ctx.state</code>能返回当前context的状态,
+<code>onstatechange</code>钩子可以在状态改变时调用我们给的函数.</p>
+<p><code>suspend</code>和<code>resume</code>方法可以切换context的状态.</p>
+<h2 id="控制按钮">控制按钮</h2>
+<pre><code>    btn.addEventListener('click', e =&gt; {
+      if (ctx.state === 'running') {
+        ctx.suspend().then(() =&gt; { })
+      } else if (ctx.state === 'suspended') {
+        ctx.resume().then(() =&gt; { })
+      }
+      e.stopPropagation()
+      e.preventDefault()
+    })
+</code></pre><h2 id="尝试自动播放">尝试自动播放</h2>
+<pre><code>    const autoResume = (e) =&gt; {
+      if (ctx.state === 'suspended') {
+        ctx.resume().then(() =&gt; {})
+      }
+      if (ctx.state === 'running') {
+        document.removeEventListener('click', autoResume)
+        document.removeEventListener('touchstart', autoResume)
+      }
+    }
+    document.addEventListener('click', autoResume, false)
+    document.addEventListener('touchstart', autoResume, false)
+</code></pre><p>我们在用户第一次单击或触摸时, 尝试调用resume, 如果成功, 则删除事件, 因为之后就一切正常播放了.</p>
+<h2 id="完整例子">完整例子</h2>
+<p><a href="https://codepen.io/jacobsun/pen/xoZwpz?editors=0010">codepen link</a></p>
+
+        
+    </div>
+    <div class="meta">
+        <p class="published-date">
+            Published at:                 <time datetime="2019.06.14">2019.06.14</time>
+        </p>
+        
+        <p>Categories</p>
+        <ul class="categories control">
+            
+            <li>
+                <a href="https://sunfy.xyz/categories/javascript/" class="btn">javascript</a>
+            </li>
+            
+        </ul>
+        
+        
+    </div>
+</main>
+<section class="comment">
+    <p class="local-info">
+        Comment is disabled to avoid unwanted discussions from 'localhost:1313' on your Disqus
+        account...
+    </p>
+    <div id="disqus_thread"></div>
+</section>
+<script type="text/javascript">
+
+    (function () {
+        if (window.location.hostname == "localhost") {
+            return
+        }
+        document.querySelector('.local-info').style.display = "none"
+
+        let dsq = document.createElement('script')
+        dsq.type = 'text/javascript'
+        dsq.async = true
+        let disqus_shortname = 'theziox'
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq)
+    })()
+</script>
+
+
+    <footer class="footer"><a href="/">sunfy.xyz</a></footer>
+
+    <script src="https://sunfy.xyz/js/main.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-140015188-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+</html>

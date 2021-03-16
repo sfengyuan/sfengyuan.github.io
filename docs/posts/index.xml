@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on sunfy</title>
+    <link>https://sunfy.xyz/posts/</link>
+    <description>Recent content in Posts on sunfy</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Tue, 25 Jun 2019 21:38:27 +0800</lastBuildDate><atom:link href="https://sunfy.xyz/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JS打包工具简单对比</title>
+      <link>https://sunfy.xyz/posts/js-bundler-compares/</link>
+      <pubDate>Tue, 25 Jun 2019 21:38:27 +0800</pubDate>
+      
+      <guid>https://sunfy.xyz/posts/js-bundler-compares/</guid>
+      <description>从功能来说, 现在3者几乎都差不多, tree shaking, dev server, code splitting, 不过rollup不支持HMR, 其实也不是完全没有办法. 测试结果 Parcel Webpack Rollup.js CJS web 1477 1116 152 node 1444 1347 374 ES6 web 1643 1101 134 node 1444 X 270 MIX web 1632 1096 X node 1444 X X 项目地址 Go</description>
+    </item>
+    
+    <item>
+      <title>自动播放媒体文件与Audio Context</title>
+      <link>https://sunfy.xyz/posts/audio-context-with-autoplay/</link>
+      <pubDate>Fri, 14 Jun 2019 23:21:09 +0800</pubDate>
+      
+      <guid>https://sunfy.xyz/posts/audio-context-with-autoplay/</guid>
+      <description>Chome在去年更新了新的政策, 进一步限制了媒体的自动播放. 自动播放 根据官网给的说明, 新的政策是: 静音的媒体可以 许多网站都是这么做的, 自动播放静音的视频, 需要用户手动启用声音. 用户产生操作之后 chro</description>
+    </item>
+    
+    <item>
+      <title>Emacs Cheatsheet</title>
+      <link>https://sunfy.xyz/posts/emacs-cheatsheet/</link>
+      <pubDate>Tue, 04 Jun 2019 22:12:46 +0800</pubDate>
+      
+      <guid>https://sunfy.xyz/posts/emacs-cheatsheet/</guid>
+      <description>偶然发现了我很久前制作的一张图, 早就不用emacs了, 不过觉得图还不错, 说不定哪天用得上. Download</description>
+    </item>
+    
+    <item>
+      <title>Javascript动画</title>
+      <link>https://sunfy.xyz/posts/js-animation/</link>
+      <pubDate>Mon, 20 May 2019 18:17:53 +0800</pubDate>
+      
+      <guid>https://sunfy.xyz/posts/js-animation/</guid>
+      <description>利用requestanimationframe实现 的一种通用动画效果, 方便使用其他库辅助动画效果. 时间 控制时间就等于控制了动画, 我们先确定动画的持续时间duration, 然后计算出已播放的时间长度对于</description>
+    </item>
+    
+    <item>
+      <title>Hello World</title>
+      <link>https://sunfy.xyz/posts/hello-world/</link>
+      <pubDate>Sun, 28 Apr 2019 17:48:36 +0800</pubDate>
+      
+      <guid>https://sunfy.xyz/posts/hello-world/</guid>
+      <description>This is a test page. This is a test page. This is a test page. This is a test page. This is a test page. This is a test page. This is a test page. This is a test page. This is a test page. This is a test page. This is a test page. This is a test page. This is a test page. This is a test page. This is a test page. This is a test page. This is a test page. This is a test page.
+code function qs (sel, parent = document.body) { if (typeof parent === &#39;string&#39;) { parent = document.</description>
+    </item>
+    
+  </channel>
+</rss>

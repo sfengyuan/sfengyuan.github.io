@@ -1,0 +1,36 @@
+theme = "hugo-theme-cole"
+title = "sunfy"
+baseurl = "https://sunfy.xyz/"
+publishDir = "docs"
+buildDrafts = "false"
+AuthorName = "sunfy"
+
+languageCode = "zh"
+defaultContentLanguage = "zh"
+hasCJKLanguage = true
+
+paginate = 5
+summaryLength = 100
+enableEmoji = true
+disableFastRender = true
+
+disqusShortname = "theziox"
+googleAnalytics = "UA-140015188-1"
+
+[plugin]
+[params]
+    customCss = ["custom.css"]
+    footer = "<a href=\"/\">sunfy.xyz</a>"
+
+[[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+[[menu.main]]
+    name = "Tool"
+    url = "/tool"
+    weight = 20
+[[menu.main]]
+    name = "About"
+    url = "/about"
+    weight = 10
