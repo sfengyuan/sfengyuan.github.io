@@ -27,8 +27,8 @@ googleAnalytics = "UA-140015188-1"
     url = "/"
     weight = 1
 [[menu.main]]
-    name = "Tool"
-    url = "/tool"
+    name = "Links"
+    url = "/links"
     weight = 20
 [[menu.main]]
     name = "About"
