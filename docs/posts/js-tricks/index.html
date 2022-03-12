@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh" >
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content="Hugo 0.81.0" />
+    
+    <link rel="canonical" href="https://sunfy.xyz/posts/js-tricks/" />
+    <meta name="description" content="">
+    
+    <title>[新]Javascript小技巧 &middot; sunfy</title>
+    <link rel="shortcut icon" href="https://sunfy.xyz/images/favicon.ico" />
+    <link rel="stylesheet" href="https://sunfy.xyz/css/main.css" />
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/atom-one-light.min.css">
+    
+    
+    <link rel="stylesheet" href="https://sunfy.xyz/css/custom.css">
+    
+</head>
+
+
+<body>
+    <header class="header">
+    <a href="https://sunfy.xyz/" class="btn logo-link">
+        <img class="logo" src="https://sunfy.xyz/images/logo.svg" alt="logo" />
+    </a>
+    <ul class="control menu">
+            
+            <li>
+                <a href="/" class="btn">
+                    Home
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about" class="btn">
+                    About
+                </a>
+            </li>
+            
+            <li>
+                <a href="/links" class="btn">
+                    Links
+                </a>
+            </li>
+            
+    </ul>
+</header>
+
+    <main class="content">
+    <h1 class="title"><a href='/posts/js-tricks/' class="btn">[新]Javascript小技巧</a></h1>
+    <div class="content">
+        
+        <h2 id="nullish-coalescing操作符-">nullish coalescing操作符 ??</h2>
+<p>它是一个类似<code>||</code>的短路求值用法的操作符, 只有当左侧的值为<code>null</code>或<code>undefined</code>时, 才返回右侧的值, 否则返回左侧的值. <code>||</code>当左侧的值为&quot;falsy`(有些人叫虚值)时就会返回右侧的.</p>
+<pre><code>console.log(null ?? 'YEAH')
+</code></pre><h2 id="optional-chaining-操作符-">optional chaining 操作符 ?.</h2>
+<p>访问不确定是否存在的属性时可以使用这个操作符, 确信存在但是没有, 应该抛出错误.</p>
+<pre><code>console.log({foo: 'Yeah'}?.bar)
+</code></pre><h2 id="利用操作符动态添加属性">利用&hellip;操作符动态添加属性</h2>
+<pre><code>console.log({
+  foo: 'foo value',
+  ...(true &amp;&amp; { bar:'bar value' })
+})
+</code></pre><h2 id="动态解构对象">动态解构对象</h2>
+<pre><code>const user = {name: 'Alex', age: 19}
+const { name: userName } = user
+const userKey = 'name'
+const { [userKey]: data } = user
+</code></pre><h2 id="使用字典处理复杂条件判断">使用字典处理复杂条件判断</h2>
+<p>这里它代替了if或者switch</p>
+<pre><code>function getBrand (brand) {
+  const brands = {
+    apple: 'apple brand',
+    google: 'google brand',
+    microsoft: 'microsoft brand'
+  }
+  return brands[brand.trim().toLowerCase()] ?? 'unknow brand'
+}
+</code></pre>
+        
+    </div>
+    <div class="meta">
+        <p class="published-date">
+            Published at:                 <time datetime="2022.03.12">2022.03.12</time>
+        </p>
+        
+        
+    </div>
+</main>
+<section class="comment">
+    <p class="local-info">
+        Comment is disabled to avoid unwanted discussions from 'localhost:1313' on your Disqus
+        account...
+    </p>
+    <div id="disqus_thread"></div>
+</section>
+<script type="text/javascript">
+
+    (function () {
+        if (window.location.hostname == "localhost") {
+            return
+        }
+        document.querySelector('.local-info').style.display = "none"
+
+        let dsq = document.createElement('script')
+        dsq.type = 'text/javascript'
+        dsq.async = true
+        let disqus_shortname = 'theziox'
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq)
+    })()
+</script>
+
+
+    <footer class="footer"><a href="/">sunfy.xyz</a></footer>
+
+    <script src="https://sunfy.xyz/js/main.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-140015188-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+</html>

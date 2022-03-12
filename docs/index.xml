@@ -6,7 +6,16 @@
     <description>Recent content on sunfy</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Tue, 25 Jun 2019 21:38:27 +0800</lastBuildDate><atom:link href="https://sunfy.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 12 Mar 2022 21:28:29 +0800</lastBuildDate><atom:link href="https://sunfy.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[新]Javascript小技巧</title>
+      <link>https://sunfy.xyz/posts/js-tricks/</link>
+      <pubDate>Sat, 12 Mar 2022 21:28:29 +0800</pubDate>
+      
+      <guid>https://sunfy.xyz/posts/js-tricks/</guid>
+      <description>nullish coalescing操作符 ?? 它是一个类似||的短路求值用法的操作符, 只有当左侧的值为null或undefined时, 才返回右侧的值, 否则返回左侧的值. ||当左侧的值为&amp;quot;falsy`(有些人</description>
+    </item>
+    
     <item>
       <title>JS打包工具简单对比</title>
       <link>https://sunfy.xyz/posts/js-bundler-compares/</link>
