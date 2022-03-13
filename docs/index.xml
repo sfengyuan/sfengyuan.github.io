@@ -6,7 +6,16 @@
     <description>Recent content on sunfy</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sat, 12 Mar 2022 21:28:29 +0800</lastBuildDate><atom:link href="https://sunfy.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 13 Mar 2022 21:56:48 +0800</lastBuildDate><atom:link href="https://sunfy.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>REST API设计</title>
+      <link>https://sunfy.xyz/posts/rest-api-design/</link>
+      <pubDate>Sun, 13 Mar 2022 21:56:48 +0800</pubDate>
+      
+      <guid>https://sunfy.xyz/posts/rest-api-design/</guid>
+      <description>HTTP相关基础知识概述 REST是基于资源的, 资源是由uri来表示, 如/books, 对资源的操作由HTTP动词来表名, 如GET, POST.... 动词和uri的组合称为endpoint, 如GET: /books, endpoint可</description>
+    </item>
+    
     <item>
       <title>[新]Javascript小技巧</title>
       <link>https://sunfy.xyz/posts/js-tricks/</link>

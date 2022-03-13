@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh" >
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content="Hugo 0.81.0" />
+    
+    <link rel="canonical" href="https://sunfy.xyz/posts/rest-api-design/" />
+    <meta name="description" content="">
+    
+    <title>REST API设计 &middot; sunfy</title>
+    <link rel="shortcut icon" href="https://sunfy.xyz/images/favicon.ico" />
+    <link rel="stylesheet" href="https://sunfy.xyz/css/main.css" />
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/atom-one-light.min.css">
+    
+    
+    <link rel="stylesheet" href="https://sunfy.xyz/css/custom.css">
+    
+</head>
+
+
+<body>
+    <header class="header">
+    <a href="https://sunfy.xyz/" class="btn logo-link">
+        <img class="logo" src="https://sunfy.xyz/images/logo.svg" alt="logo" />
+    </a>
+    <ul class="control menu">
+            
+            <li>
+                <a href="/" class="btn">
+                    Home
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about" class="btn">
+                    About
+                </a>
+            </li>
+            
+            <li>
+                <a href="/links" class="btn">
+                    Links
+                </a>
+            </li>
+            
+    </ul>
+</header>
+
+    <main class="content">
+    <h1 class="title"><a href='/posts/rest-api-design/' class="btn">REST API设计</a></h1>
+    <div class="content">
+        
+        <h2 id="http相关基础知识概述">HTTP相关基础知识概述</h2>
+<p>REST是基于资源的, 资源是由uri来表示, 如<code>/books</code>, 对资源的操作由HTTP动词来表名, 如<code>GET, POST...</code>. 动词和uri的组合称为endpoint, 如<code>GET: /books</code>, endpoint可以理解为对某资源的操作. 如<code>POST: /books</code>可以意思<code>创建一本新书</code>.</p>
+<p>响应状态可以由状态码表示:</p>
+<pre><code>1xx: 信息
+2xx: 成功
+3xx: 重定向
+4xx: 客户端错误
+5xx:服务器端错误
+</code></pre><p>从开发角度看, HTTP动词可以映射到CRUD操作.</p>
+<pre><code>GET -&gt; READ,
+POST -&gt; CREATE
+PUT, PATCH -&gt; UPDATE
+DELETE -&gt; DELETE
+</code></pre><h2 id="必备常识">必备常识</h2>
+<ol>
+<li>指定<code>Content-Type</code>, 如<code>Content-Type: application/json</code></li>
+<li><code>uri</code>里不要包含操作动词.</li>
+</ol>
+<pre><code>POST: /books/create-new-book
+改成
+POST: /books
+</code></pre><ol start="3">
+<li>为了统一性, 资源名字最好用复数</li>
+<li>响应体包含详细错误信息.</li>
+</ol>
+<p>如
+<code>message</code>可以在界面上显示, <code>detail</code>是提供给开发人员使用的.</p>
+<pre><code>{
+  &quot;error&quot;: &quot;Invalid payload.&quot;,
+  &quot;message&quot;: &quot;Required fields should not be blank.&quot;,
+  &quot;detail&quot;: {
+      &quot;name&quot;: &quot;This field is required.&quot;
+  }
+}
+</code></pre><p>IETF设计了RFC7807，它创建了一个通用的错误处理模式.</p>
+<p>该模式由五部分组成:</p>
+<p>type — 对错误进行分类的URI标识符
+title — 简短易懂的消息
+status — HTTP响应码(可选)
+detail — 错误说明
+instance — 标识特定错误的URL实例
+除了使用我们自定义的错误响应主体，还可以将主体转换为:</p>
+<pre><code>{
+  &quot;type&quot;: &quot;/errors/incorrect-user-pass&quot;,
+  &quot;title&quot;: &quot;Incorrect username or password.&quot;,
+  &quot;status&quot;: 403,
+  &quot;detail&quot;: &quot;Authentication failed due to incorrect username or password.&quot;,
+  &quot;instance&quot;: &quot;/login/log/abc123&quot;
+}
+</code></pre><ol start="5">
+<li>使用准确的状态码描述响应.</li>
+</ol>
+<p>也可以使用更通用状态码来描述, 如Facebook只使用400作为所有错误的状态码.</p>
+<ol start="6">
+<li>每个动词对应的状态码应该始终一致.</li>
+</ol>
+<pre><code>GET: 200 OK
+PUT: 200 OK
+POST: 201 Created
+PATCH: 200 OK
+DELETE: 204 No Content
+</code></pre><ol start="7">
+<li>查询字符串而非嵌套uri
+嵌套uri会使资源不明显</li>
+</ol>
+<pre><code>/authors/libai/tangshi
+# 不如
+/tangshi?author=libai
+</code></pre><ol start="8">
+<li>自动处理uri末尾的斜杠.
+无论uri有或没有斜杠, 程序应该兼容两种风格.</li>
+</ol>
+<pre><code>/books
+/books/
+</code></pre><ol start="9">
+<li>使用查询字符串过滤分页</li>
+</ol>
+<pre><code>/books/published
+# 不如
+/books?published=true&amp;page=2&amp;page_size=10
+</code></pre><ol start="10">
+<li>401 VS 403</li>
+</ol>
+<pre><code># 未提供身份信息的使用
+401 Unauthorized
+
+# 提供了身份信息, 但没有必要的权限
+403 Forbidden
+</code></pre><ol start="11">
+<li>202 Accepted</li>
+</ol>
+<p><code>202 Accepted</code>可以作为<code>201 created</code>的替代品. 它适用的场景:</p>
+<pre><code>1. 资源将会在未来创建, 如在某个job完成后.
+2. 资源已经创建, 但本次操作不算错误
+</code></pre>
+        
+    </div>
+    <div class="meta">
+        <p class="published-date">
+            Published at:                 <time datetime="2022.03.13">2022.03.13</time>
+        </p>
+        
+        
+    </div>
+</main>
+<section class="comment">
+    <p class="local-info">
+        Comment is disabled to avoid unwanted discussions from 'localhost:1313' on your Disqus
+        account...
+    </p>
+    <div id="disqus_thread"></div>
+</section>
+<script type="text/javascript">
+
+    (function () {
+        if (window.location.hostname == "localhost") {
+            return
+        }
+        document.querySelector('.local-info').style.display = "none"
+
+        let dsq = document.createElement('script')
+        dsq.type = 'text/javascript'
+        dsq.async = true
+        let disqus_shortname = 'theziox'
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq)
+    })()
+</script>
+
+
+    <footer class="footer"><a href="/">sunfy.xyz</a></footer>
+
+    <script src="https://sunfy.xyz/js/main.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-140015188-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+</html>
