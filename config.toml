@@ -20,7 +20,7 @@ googleAnalytics = "UA-140015188-1"
 [plugin]
 [params]
     customCss = ["custom.css"]
-    footer = "<a href=\"/\">sunfy.xyz</a>"
+    footer = "<a href=\"/\">https://sfengyuan.github.io</a>"
 
 [[menu.main]]
     name = "Home"
