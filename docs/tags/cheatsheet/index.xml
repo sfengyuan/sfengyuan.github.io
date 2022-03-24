@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>cheatsheet on sunfy</title>
-    <link>https://sunfy.xyz/tags/cheatsheet/</link>
+    <link>https://sfengyuan.github.io/tags/cheatsheet/</link>
     <description>Recent content in cheatsheet on sunfy</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Tue, 04 Jun 2019 22:12:46 +0800</lastBuildDate><atom:link href="https://sunfy.xyz/tags/cheatsheet/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 04 Jun 2019 22:12:46 +0800</lastBuildDate><atom:link href="https://sfengyuan.github.io/tags/cheatsheet/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Emacs Cheatsheet</title>
-      <link>https://sunfy.xyz/posts/emacs-cheatsheet/</link>
+      <link>https://sfengyuan.github.io/posts/emacs-cheatsheet/</link>
       <pubDate>Tue, 04 Jun 2019 22:12:46 +0800</pubDate>
       
-      <guid>https://sunfy.xyz/posts/emacs-cheatsheet/</guid>
+      <guid>https://sfengyuan.github.io/posts/emacs-cheatsheet/</guid>
       <description>偶然发现了我很久前制作的一张图, 早就不用emacs了, 不过觉得图还不错, 说不定哪天用得上. Download</description>
     </item>
     

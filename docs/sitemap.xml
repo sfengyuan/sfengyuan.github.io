@@ -2,79 +2,79 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://sunfy.xyz/posts/</loc>
+    <loc>https://sfengyuan.github.io/posts/</loc>
     <lastmod>2022-03-13T21:56:48+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/posts/rest-api-design/</loc>
+    <loc>https://sfengyuan.github.io/posts/rest-api-design/</loc>
     <lastmod>2022-03-13T21:56:48+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/</loc>
+    <loc>https://sfengyuan.github.io/</loc>
     <lastmod>2022-03-13T21:56:48+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/posts/js-tricks/</loc>
+    <loc>https://sfengyuan.github.io/posts/js-tricks/</loc>
     <lastmod>2022-03-12T21:28:29+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/categories/</loc>
+    <loc>https://sfengyuan.github.io/categories/</loc>
     <lastmod>2019-06-25T21:38:27+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/categories/development/</loc>
+    <loc>https://sfengyuan.github.io/categories/development/</loc>
     <lastmod>2019-06-25T21:38:27+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/posts/js-bundler-compares/</loc>
+    <loc>https://sfengyuan.github.io/posts/js-bundler-compares/</loc>
     <lastmod>2019-06-25T21:38:27+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/categories/javascript/</loc>
+    <loc>https://sfengyuan.github.io/categories/javascript/</loc>
     <lastmod>2019-06-14T23:21:09+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/posts/audio-context-with-autoplay/</loc>
+    <loc>https://sfengyuan.github.io/posts/audio-context-with-autoplay/</loc>
     <lastmod>2019-06-14T23:21:09+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/tags/cheatsheet/</loc>
+    <loc>https://sfengyuan.github.io/tags/cheatsheet/</loc>
     <lastmod>2019-06-04T22:12:46+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/tags/emacs/</loc>
+    <loc>https://sfengyuan.github.io/tags/emacs/</loc>
     <lastmod>2019-06-04T22:12:46+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/posts/emacs-cheatsheet/</loc>
+    <loc>https://sfengyuan.github.io/posts/emacs-cheatsheet/</loc>
     <lastmod>2019-06-04T22:12:46+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/tags/</loc>
+    <loc>https://sfengyuan.github.io/tags/</loc>
     <lastmod>2019-06-04T22:12:46+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/links/</loc>
+    <loc>https://sfengyuan.github.io/links/</loc>
     <lastmod>2019-05-25T15:51:04+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/about/</loc>
+    <loc>https://sfengyuan.github.io/about/</loc>
     <lastmod>2019-05-25T15:47:09+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/posts/js-animation/</loc>
+    <loc>https://sfengyuan.github.io/posts/js-animation/</loc>
     <lastmod>2019-05-20T18:17:53+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/tags/%E5%8A%A8%E7%94%BB/</loc>
+    <loc>https://sfengyuan.github.io/tags/%E5%8A%A8%E7%94%BB/</loc>
     <lastmod>2019-05-20T18:17:53+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/tags/blogging/</loc>
+    <loc>https://sfengyuan.github.io/tags/blogging/</loc>
     <lastmod>2019-04-28T17:48:36+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/tags/development/</loc>
+    <loc>https://sfengyuan.github.io/tags/development/</loc>
     <lastmod>2019-04-28T17:48:36+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/tags/fast/</loc>
+    <loc>https://sfengyuan.github.io/tags/fast/</loc>
     <lastmod>2019-04-28T17:48:36+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/tags/go/</loc>
+    <loc>https://sfengyuan.github.io/tags/go/</loc>
     <lastmod>2019-04-28T17:48:36+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/posts/hello-world/</loc>
+    <loc>https://sfengyuan.github.io/posts/hello-world/</loc>
     <lastmod>2019-04-28T17:48:36+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/categories/hello-world/</loc>
+    <loc>https://sfengyuan.github.io/categories/hello-world/</loc>
     <lastmod>2019-04-28T17:48:36+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/categories/test/</loc>
+    <loc>https://sfengyuan.github.io/categories/test/</loc>
     <lastmod>2019-04-28T17:48:36+08:00</lastmod>
   </url><url>
-    <loc>https://sunfy.xyz/categories/tmp/</loc>
+    <loc>https://sfengyuan.github.io/categories/tmp/</loc>
     <lastmod>2019-04-28T17:48:36+08:00</lastmod>
   </url>
 </urlset>

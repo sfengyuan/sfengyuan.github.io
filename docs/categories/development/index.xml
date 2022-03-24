@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>development on sunfy</title>
-    <link>https://sunfy.xyz/categories/development/</link>
+    <link>https://sfengyuan.github.io/categories/development/</link>
     <description>Recent content in development on sunfy</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Tue, 25 Jun 2019 21:38:27 +0800</lastBuildDate><atom:link href="https://sunfy.xyz/categories/development/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 25 Jun 2019 21:38:27 +0800</lastBuildDate><atom:link href="https://sfengyuan.github.io/categories/development/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>JS打包工具简单对比</title>
-      <link>https://sunfy.xyz/posts/js-bundler-compares/</link>
+      <link>https://sfengyuan.github.io/posts/js-bundler-compares/</link>
       <pubDate>Tue, 25 Jun 2019 21:38:27 +0800</pubDate>
       
-      <guid>https://sunfy.xyz/posts/js-bundler-compares/</guid>
+      <guid>https://sfengyuan.github.io/posts/js-bundler-compares/</guid>
       <description>从功能来说, 现在3者几乎都差不多, tree shaking, dev server, code splitting, 不过rollup不支持HMR, 其实也不是完全没有办法. 测试结果 Parcel Webpack Rollup.js CJS web 1477 1116 152 node 1444 1347 374 ES6 web 1643 1101 134 node 1444 X 270 MIX web 1632 1096 X node 1444 X X 项目地址 Go</description>
     </item>
     

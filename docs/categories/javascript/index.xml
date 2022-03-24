@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>javascript on sunfy</title>
-    <link>https://sunfy.xyz/categories/javascript/</link>
+    <link>https://sfengyuan.github.io/categories/javascript/</link>
     <description>Recent content in javascript on sunfy</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Fri, 14 Jun 2019 23:21:09 +0800</lastBuildDate><atom:link href="https://sunfy.xyz/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 14 Jun 2019 23:21:09 +0800</lastBuildDate><atom:link href="https://sfengyuan.github.io/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>自动播放媒体文件与Audio Context</title>
-      <link>https://sunfy.xyz/posts/audio-context-with-autoplay/</link>
+      <link>https://sfengyuan.github.io/posts/audio-context-with-autoplay/</link>
       <pubDate>Fri, 14 Jun 2019 23:21:09 +0800</pubDate>
       
-      <guid>https://sunfy.xyz/posts/audio-context-with-autoplay/</guid>
+      <guid>https://sfengyuan.github.io/posts/audio-context-with-autoplay/</guid>
       <description>Chome在去年更新了新的政策, 进一步限制了媒体的自动播放. 自动播放 根据官网给的说明, 新的政策是: 静音的媒体可以 许多网站都是这么做的, 自动播放静音的视频, 需要用户手动启用声音. 用户产生操作之后 chro</description>
     </item>
     
     <item>
       <title>Javascript动画</title>
-      <link>https://sunfy.xyz/posts/js-animation/</link>
+      <link>https://sfengyuan.github.io/posts/js-animation/</link>
       <pubDate>Mon, 20 May 2019 18:17:53 +0800</pubDate>
       
-      <guid>https://sunfy.xyz/posts/js-animation/</guid>
+      <guid>https://sfengyuan.github.io/posts/js-animation/</guid>
       <description>利用requestanimationframe实现 的一种通用动画效果, 方便使用其他库辅助动画效果. 时间 控制时间就等于控制了动画, 我们先确定动画的持续时间duration, 然后计算出已播放的时间长度对于</description>
     </item>
     

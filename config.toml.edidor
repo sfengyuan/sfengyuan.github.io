@@ -1,6 +1,6 @@
 theme = "edidor"
 title = "sunfy"
-baseurl = "https://sunfy.xyz/"
+baseurl = "https://sfengyuan.github.io/"
 publishDir = "docs"
 buildDrafts = "false"
 AuthorName = "sunfy"

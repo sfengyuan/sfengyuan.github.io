@@ -10,5 +10,5 @@ description: ""
 slug: ""
 ---
 
-- [姓名生成器](https://sunfy.xyz/chinese-name-generator/)
-- [日语五段动词](https://sunfy.xyz/chinese-name-generator/)
+- [姓名生成器](https://sfengyuan.github.io/chinese-name-generator/)
+- [日语五段动词](https://sfengyuan.github.io/chinese-name-generator/)
